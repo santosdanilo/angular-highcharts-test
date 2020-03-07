@@ -6,7 +6,7 @@ import { delay, mergeMap, tap, switchMap, take } from 'rxjs/operators';
   selector: 'my-app',
   template: `
     <main>
-      <ga-chart class="stack" [title]="'gaga'" [options]="value" [traits]="'money'">
+      <ga-chart class="stack" [title]="'gaga'" [options]="value">
     </ga-chart>
     </main>
   `,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation, Inject, LOCALE_ID, ViewChild, Output, EventEmitter, ContentChild, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation, Inject, LOCALE_ID, ViewChild, Output, EventEmitter, ContentChild, AfterContentInit, AfterViewInit } from '@angular/core';
 import * as Highcharts from 'highcharts'
 import { Options, Chart } from 'highcharts'
 import { ChartHelper } from './chart-helper';
@@ -23,8 +23,8 @@ import { merge } from 'lodash/fp'
   //changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class ChartComponent implements OnInit {
-  @ViewChild(HighchartsChartComponent, { static: true }) highchartsWrapper: HighchartsChartComponent;
+export class ChartComponent implements OnInit, AfterViewInit {
+  @ViewChild(HighchartsChartComponent, { static: false }) highchartsWrapper: HighchartsChartComponent;
 
   _options: Options = null;
   @Input()
@@ -42,14 +42,13 @@ export class ChartComponent implements OnInit {
     this._options = merge(self.defautChartOptions, { ...value })
   };
   @Input() title: string;
-  @Input() traits: DataTraits;
 
   Highcharts: typeof Highcharts = Highcharts;
   chartInstance: Chart = null
 
   constructor(@Inject(LOCALE_ID) private _locale: string) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     const oldUpdateOrCreateChart = this.highchartsWrapper.updateOrCreateChart.bind(this.highchartsWrapper)
     const handler = function () {
       oldUpdateOrCreateChart()
