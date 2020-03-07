@@ -26,7 +26,7 @@ export class AppComponent {
       type: 'bar'
     },
     xAxis: {
-      visible: true
+      visible: false
     },
     series: [
       { data: [1, 2], type: 'bar', id: '0' },
@@ -39,10 +39,7 @@ export class AppComponent {
     chart: {
       type: 'column',
       xAxis: {
-        visible: false
-      },
-      yAxis: {
-        visible: false
+        visible: true
       }
     },
     series: [
