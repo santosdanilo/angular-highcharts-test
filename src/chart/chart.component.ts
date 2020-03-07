@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation, Inject, LOCALE_ID, ViewChild, Output, EventEmitter, ContentChild, AfterContentInit, AfterViewInit } from '@angular/core';
 import * as Highcharts from 'highcharts'
 import { Options, Chart } from 'highcharts'
-import { ChartHelper } from './chart-helper';
+import { ChartHelper } from './chart.helper';
 import { HighchartsChartComponent } from 'highcharts-angular';
-import { merge } from 'lodash/fp'
 
 @Component({
   selector: 'ga-chart',
@@ -32,14 +31,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
     return this._options
   }
   set options(value: Options) {
-    /*
     if (!value) {
       value = ChartHelper.minimalObject
-    }*/
-
-    this._options = null;
-    const self = this
-    this._options = merge(self.defautChartOptions, { ...value })
+    }
+    this._options = value
   };
   @Input() title: string;
 
@@ -49,6 +44,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   constructor(@Inject(LOCALE_ID) private _locale: string) { }
 
   ngAfterViewInit() {
+    /*
     const oldUpdateOrCreateChart = this.highchartsWrapper.updateOrCreateChart.bind(this.highchartsWrapper)
     const handler = function () {
       oldUpdateOrCreateChart()
@@ -57,30 +53,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
       }
     }
     this.highchartsWrapper.updateOrCreateChart = handler.bind(this.highchartsWrapper)
+    */
   }
 
   getInstance(event: Chart) {
     this.chartInstance = event as Chart
-  }
-
-  get defautChartOptions(): Options {
-    const self = this
-    return {
-      //@ts-ignore
-      // yAxis: {
-      //   labels: {
-      //     formatter: function () {
-      //       const label: string = this.axis.defaultLabelFormatter.call(this)
-      //       return formatDataTrait(label, self.traits, self._locale)
-      //     }
-      //   }
-      // },
-      //tooltip: {
-      //  formatter: function () {
-      //    const y = formatDataPrefix(this.y, self.traits, self._locale)
-      //    return `<span>${this.x} </span><b>${y}</b><br/> ${this.series.name}`
-      //  }
-      //}
-    }
   }
 }
