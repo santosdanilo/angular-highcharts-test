@@ -3,7 +3,6 @@ import * as Highcharts from 'highcharts'
 import { Options, Chart } from 'highcharts'
 import { ChartHelper } from './chart-helper';
 import { HighchartsChartComponent } from 'highcharts-angular';
-import { DataTraits, formatDataTrait, formatDataPrefix } from '../shared/public-api';
 import { merge } from 'lodash/fp'
 
 @Component({
@@ -77,12 +76,12 @@ export class ChartComponent implements OnInit {
       //     }
       //   }
       // },
-      tooltip: {
-        formatter: function () {
-          const y = formatDataPrefix(this.y, self.traits, self._locale)
-          return `<span>${this.x} </span><b>${y}</b><br/> ${this.series.name}`
-        }
-      }
+      //tooltip: {
+      //  formatter: function () {
+      //    const y = formatDataPrefix(this.y, self.traits, self._locale)
+      //    return `<span>${this.x} </span><b>${y}</b><br/> ${this.series.name}`
+      //  }
+      //}
     }
   }
 }
